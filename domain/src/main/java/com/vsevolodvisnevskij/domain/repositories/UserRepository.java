@@ -16,10 +16,9 @@ public interface UserRepository {
 
     Observable<List<UserEntity>> get();
 
-    Completable save();
+    Completable save(UserEntity userEntity);
 
     Completable remove();
-
 
 
 }

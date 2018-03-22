@@ -55,8 +55,13 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Completable save() {
-        return null;
+    public Completable save(UserEntity userEntity) {
+        User user = new User();
+        user.setUsername(userEntity.getUserName());
+        user.setProfileUrl(userEntity.getUrl());
+        user.setAge(userEntity.getAge());
+        user.setObjectId(userEntity.getId());
+        return restService.saveUser(user);
     }
 
     @Override

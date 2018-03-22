@@ -1,5 +1,7 @@
 package com.vsevolodvisnevskij.data.net;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.vsevolodvisnevskij.data.entity.User;
 
 import java.util.List;
@@ -7,6 +9,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 
 /**
@@ -28,5 +31,9 @@ public class RestService {
 
     public Observable<User> loadUserById(String id) {
         return restApi.loadUserById(id);
+    }
+
+    public Completable saveUser(User user) {
+        return restApi.saveUser(user);
     }
 }

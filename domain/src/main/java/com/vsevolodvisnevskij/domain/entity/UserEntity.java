@@ -10,9 +10,6 @@ public class UserEntity {
     private int age;
     private String id;
 
-    public UserEntity() {
-    }
-
     public UserEntity(String userName, String url, int age, String id) {
         this.userName = userName;
         this.url = url;
