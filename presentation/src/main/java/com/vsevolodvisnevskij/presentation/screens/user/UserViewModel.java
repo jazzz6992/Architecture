@@ -1,7 +1,7 @@
 package com.vsevolodvisnevskij.presentation.screens.user;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
@@ -11,6 +11,7 @@ import com.vsevolodvisnevskij.app.App;
 import com.vsevolodvisnevskij.domain.entity.UserEntity;
 import com.vsevolodvisnevskij.domain.interactors.GetUserByIdUseCase;
 import com.vsevolodvisnevskij.presentation.base.BaseViewModel;
+import com.vsevolodvisnevskij.presentation.screens.edit.EditUserActivity;
 
 import javax.inject.Inject;
 
@@ -106,5 +107,10 @@ public class UserViewModel extends BaseViewModel {
     public void setId(String id) {
         this.id = id;
         start();
+    }
+
+    public void startEditActivity() {
+        Intent intent = EditUserActivity.getIntent(context, userName.get(), profileUrl.get(), age.get(), id);
+        context.startActivity(intent);
     }
 }

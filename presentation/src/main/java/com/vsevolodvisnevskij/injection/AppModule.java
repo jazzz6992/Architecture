@@ -54,7 +54,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public Retrofit getRetrofit(Gson gson) {
+    public Retrofit getRetrofit() {
         return new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).addCallAdapterFactory(RxJava2CallAdapterFactory.create()).baseUrl("https://api.backendless.com/AFBA53A5-EC03-38A9-FFE5-36B3315DD900/2FE78199-7AC8-D9DD-FF68-E1085DEA3700/").build();
     }
 
@@ -62,17 +62,6 @@ public class AppModule {
     @Singleton
     public RestApi getRestApi(Retrofit retrofit) {
         return retrofit.create(RestApi.class);
-    }
-
-    @Provides
-    @Singleton
-    public Gson getGson() {
-        return new GsonBuilder().create();
-    }
-
-    @Provides
-    public RecyclerView getRecyclerView(Context context) {
-        return new RecyclerView(context);
     }
 
     @Provides
