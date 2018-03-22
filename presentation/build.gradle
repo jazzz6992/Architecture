@@ -1,0 +1,46 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion rootProject.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.vsevolodvisnevskij.architecture"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    def dependancy = rootProject.ext.dependencies
+    implementation dependancy.supportAppcompat
+    implementation dependancy.supportV4
+    implementation dependancy.supportDesign
+    implementation dependancy.rxAndroid
+    implementation dependancy.constraintLayout
+    implementation dependancy.picasso
+    implementation dependancy.archComponentsExtention
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    annotationProcessor dependancy.archComponentCompiler
+    implementation dependancy.dagger
+    annotationProcessor dependancy.daggerCompiler
+    implementation project(path: ':data')
+    implementation dependancy.cardView
+}
