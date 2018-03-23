@@ -1,7 +1,5 @@
 package com.vsevolodvisnevskij.data.net;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.vsevolodvisnevskij.data.entity.User;
 
 import java.util.List;
@@ -35,5 +33,9 @@ public class RestService {
 
     public Completable saveUser(User user) {
         return restApi.saveUser(user);
+    }
+
+    public Completable removeUser(String id) {
+        return restApi.removeUser(id);
     }
 }

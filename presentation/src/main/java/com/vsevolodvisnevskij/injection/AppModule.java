@@ -63,9 +63,4 @@ public class AppModule {
     public RestApi getRestApi(Retrofit retrofit) {
         return retrofit.create(RestApi.class);
     }
-
-    @Provides
-    public LinearLayoutManager getLinearLayoutManager(Context context) {
-        return new LinearLayoutManager(context);
-    }
 }

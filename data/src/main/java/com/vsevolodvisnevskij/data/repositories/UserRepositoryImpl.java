@@ -65,7 +65,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Completable remove() {
-        return null;
+    public Completable remove(String id) {
+        return restService.removeUser(id);
     }
 }

@@ -9,6 +9,7 @@ import io.reactivex.disposables.CompositeDisposable;
  */
 
 public abstract class BaseViewModel extends ViewModel {
+    public static final String MY_TEG = "my_teg";
     protected CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public abstract void createInject();

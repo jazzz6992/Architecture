@@ -18,7 +18,7 @@ public interface UserRepository {
 
     Completable save(UserEntity userEntity);
 
-    Completable remove();
+    Completable remove(String id);
 
 
 }

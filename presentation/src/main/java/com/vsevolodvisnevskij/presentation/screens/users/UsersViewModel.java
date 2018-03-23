@@ -3,7 +3,6 @@ package com.vsevolodvisnevskij.presentation.screens.users;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,9 +33,6 @@ public class UsersViewModel extends BaseViewModel {
     public GetUsersUseCase getUsersUseCase;
 
     @Inject
-    public LinearLayoutManager linearLayoutManager;
-
-    @Inject
     public Context context;
 
     private UserAdapter adapter = new UserAdapter();
@@ -44,31 +40,6 @@ public class UsersViewModel extends BaseViewModel {
     @Override
     public void createInject() {
         App.getAppComponent().inject(this);
-    }
-
-    public UsersViewModel() {
-        getUsersUseCase.get().subscribe(new Observer<List<UserEntity>>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-                compositeDisposable.add(d);
-            }
-
-            @Override
-            public void onNext(List<UserEntity> userEntities) {
-                adapter.setUserEntities(userEntities);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
     }
 
     class UserHolder extends RecyclerView.ViewHolder {
@@ -82,6 +53,7 @@ public class UsersViewModel extends BaseViewModel {
                 @Override
                 public void onClick(View v) {
                     Intent intent = UserActivity.getIntent(context, binding.getViewModel().getId());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }
             });
@@ -113,11 +85,37 @@ public class UsersViewModel extends BaseViewModel {
         }
     }
 
-    public LinearLayoutManager getLinearLayoutManager() {
-        return linearLayoutManager;
-    }
+    //    public LinearLayoutManager getLinearLayoutManager() {
+    //        return linearLayoutManager;
+    //    }
 
     public UserAdapter gerUserAdapter() {
         return adapter;
+    }
+
+    @Override
+    public void onResume() {
+        getUsersUseCase.get().subscribe(new Observer<List<UserEntity>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                compositeDisposable.add(d);
+            }
+
+            @Override
+            public void onNext(List<UserEntity> userEntities) {
+                adapter.setUserEntities(userEntities);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
     }
 }

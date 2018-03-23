@@ -7,10 +7,8 @@ import java.util.List;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
@@ -26,6 +24,9 @@ public interface RestApi {
     Observable<User> loadUserById(@Path("id") String id);
 
     @PUT("data/User")
-    Completable saveUser(@Body User body);
+    Completable saveUser(@Body User user);
+
+    @DELETE("data/User/{id}")
+    Completable removeUser(@Path("id") String id);
 
 }

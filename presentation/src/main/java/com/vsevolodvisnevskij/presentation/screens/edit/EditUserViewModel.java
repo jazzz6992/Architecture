@@ -1,11 +1,9 @@
 package com.vsevolodvisnevskij.presentation.screens.edit;
 
-import android.content.Context;
 import android.databinding.InverseMethod;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
-import android.util.Log;
-import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
 
 import com.vsevolodvisnevskij.app.App;
 import com.vsevolodvisnevskij.domain.entity.UserEntity;
@@ -22,12 +20,11 @@ import io.reactivex.disposables.Disposable;
  */
 
 public class EditUserViewModel extends BaseViewModel {
-    private String MYTAG = "MYTAG";
 
     @Inject
     public SaveUserUseCase saveUserUseCase;
-    @Inject
-    public Context context;
+
+    private AppCompatActivity activity;
 
     private ObservableField<String> name = new ObservableField<>();
     private ObservableField<String> profileUrl = new ObservableField<>();
@@ -67,6 +64,9 @@ public class EditUserViewModel extends BaseViewModel {
         return objectId;
     }
 
+    public void setActivity(AppCompatActivity activity) {
+        this.activity = activity;
+    }
 
     @InverseMethod("convertToAge")
     public String convertFromAge(int age) {
@@ -74,6 +74,9 @@ public class EditUserViewModel extends BaseViewModel {
     }
 
     public int convertToAge(String s) {
+        if (s.length() == 0) {
+            return 0;
+        }
         return Integer.valueOf(s);
     }
 
@@ -82,18 +85,16 @@ public class EditUserViewModel extends BaseViewModel {
         saveUserUseCase.save(userEntity).subscribe(new CompletableObserver() {
             @Override
             public void onSubscribe(Disposable d) {
-                Toast.makeText(context, "SUBSCRIBED", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onComplete() {
-                Toast.makeText(context, "DONE", Toast.LENGTH_LONG).show();
+                activity.finish();
             }
 
             @Override
             public void onError(Throwable e) {
-                Toast.makeText(context, "FAIL", Toast.LENGTH_LONG).show();
-                Log.d(MYTAG, e.getLocalizedMessage());
+
             }
         });
     }

@@ -15,9 +15,8 @@ import com.vsevolodvisnevskij.presentation.screens.users.UsersViewModel;
 
 public class BindingAdapters {
 
-    @BindingAdapter({"adapter", "manager"})
-    public static void initRecyclerView(RecyclerView recyclerView, UsersViewModel.UserAdapter userAdapter, LinearLayoutManager linearLayoutManager) {
-        recyclerView.setLayoutManager(linearLayoutManager);
+    @BindingAdapter({"adapter"})
+    public static void initRecyclerView(RecyclerView recyclerView, UsersViewModel.UserAdapter userAdapter) {
         recyclerView.setAdapter(userAdapter);
     }
 

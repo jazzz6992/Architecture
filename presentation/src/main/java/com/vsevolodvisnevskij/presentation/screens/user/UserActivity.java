@@ -24,8 +24,15 @@ public class UserActivity extends BaseMVVMActivity<ActivityUserBinding, UserView
     @Override
     public UserViewModel provideViewModel() {
         UserViewModel userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        userViewModel.setActivity(this);
         userViewModel.setId(getIntent().getStringExtra(EXTRA_ID));
         return userViewModel;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewModel.onResume();
     }
 
     public static Intent getIntent(Context context, String id) {
