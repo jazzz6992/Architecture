@@ -36,10 +36,15 @@ public class UsersViewModel extends BaseViewModel {
     public Context context;
 
     private UserAdapter adapter = new UserAdapter();
+    private boolean activityStarted = false;
 
     @Override
     public void createInject() {
         App.getAppComponent().inject(this);
+    }
+
+    public UsersViewModel() {
+        loadNextPage("0");
     }
 
     class UserHolder extends RecyclerView.ViewHolder {
@@ -54,7 +59,7 @@ public class UsersViewModel extends BaseViewModel {
                 public void onClick(View v) {
                     Intent intent = UserActivity.getIntent(context, binding.getViewModel().getId());
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
+                    startActivity(intent);
                 }
             });
         }
@@ -63,8 +68,8 @@ public class UsersViewModel extends BaseViewModel {
     public class UserAdapter extends RecyclerView.Adapter<UserHolder> {
         private List<UserEntity> userEntities = new ArrayList<>();
 
-        public void setUserEntities(List<UserEntity> userEntities) {
-            this.userEntities = userEntities;
+        public void addUserEntities(List<UserEntity> userEntities) {
+            this.userEntities.addAll(userEntities);
         }
 
         @Override
@@ -77,11 +82,18 @@ public class UsersViewModel extends BaseViewModel {
         @Override
         public void onBindViewHolder(UserHolder holder, int position) {
             holder.binding.getViewModel().setEntity(userEntities.get(position));
+            if (position == userEntities.size() - 1) {
+                loadNextPage(String.valueOf(position + 1));
+            }
         }
 
         @Override
         public int getItemCount() {
             return userEntities.size();
+        }
+
+        public void clear() {
+            userEntities.clear();
         }
     }
 
@@ -93,9 +105,8 @@ public class UsersViewModel extends BaseViewModel {
         return adapter;
     }
 
-    @Override
-    public void onResume() {
-        getUsersUseCase.get().subscribe(new Observer<List<UserEntity>>() {
+    private void loadNextPage(String offset) {
+        getUsersUseCase.get(offset).subscribe(new Observer<List<UserEntity>>() {
             @Override
             public void onSubscribe(Disposable d) {
                 compositeDisposable.add(d);
@@ -103,13 +114,15 @@ public class UsersViewModel extends BaseViewModel {
 
             @Override
             public void onNext(List<UserEntity> userEntities) {
-                adapter.setUserEntities(userEntities);
-                adapter.notifyDataSetChanged();
+                if (userEntities.size() != 0) {
+                    adapter.addUserEntities(userEntities);
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override
             public void onError(Throwable e) {
-
+                System.out.println();
             }
 
             @Override
@@ -117,5 +130,19 @@ public class UsersViewModel extends BaseViewModel {
 
             }
         });
+    }
+
+    public void startActivity(Intent intent) {
+        activityStarted = true;
+        context.startActivity(intent);
+    }
+
+    @Override
+    public void onResume() {
+        if (activityStarted) {
+            activityStarted = false;
+            adapter.clear();
+            loadNextPage("0");
+        }
     }
 }

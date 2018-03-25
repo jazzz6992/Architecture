@@ -12,9 +12,9 @@ import io.reactivex.Observable;
  */
 
 public interface UserRepository {
-    Observable<UserEntity> get(String id);
+    Observable<UserEntity> getUser(String id);
 
-    Observable<List<UserEntity>> get();
+    Observable<List<UserEntity>> getUsers(String offset);
 
     Completable save(UserEntity userEntity);
 

@@ -36,7 +36,7 @@ ext {
     javaInjectVersion = '1'
     retrofitVersion = '2.4.0'
     retrofitRxAdapterVersion = '1.0.0'
-    cardViewVersion = ''
+    okHttpVersion = '3.10.0'
 
     dependencies = [
             supportAppcompat       : "com.android.support:appcompat-v7:$buildToolsVersion",
@@ -55,7 +55,9 @@ ext {
             javaxInject            : "javax.inject:javax.inject:$javaInjectVersion",
             retrofit               : "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitGsonConverter  : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
-            retrofitRxAdapter      : "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$retrofitRxAdapterVersion"
+            retrofitRxAdapter      : "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$retrofitRxAdapterVersion",
+            okHttp                 : "com.squareup.okhttp3:okhttp:$okHttpVersion",
+            okHttpLogging          : "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
     ]
 }
 

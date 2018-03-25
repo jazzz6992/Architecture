@@ -31,7 +31,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Observable<UserEntity> get(String id) {
+    public Observable<UserEntity> getUser(String id) {
         return restService.loadUserById(id).map(new Function<User, UserEntity>() {
             @Override
             public UserEntity apply(User user) throws Exception {
@@ -41,8 +41,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Observable<List<UserEntity>> get() {
-        return restService.loadUsers().map(new Function<List<User>, List<UserEntity>>() {
+    public Observable<List<UserEntity>> getUsers(String offset) {
+        return restService.loadUsers(offset).map(new Function<List<User>, List<UserEntity>>() {
             @Override
             public List<UserEntity> apply(List<User> users) throws Exception {
                 List<UserEntity> list = new ArrayList<>();

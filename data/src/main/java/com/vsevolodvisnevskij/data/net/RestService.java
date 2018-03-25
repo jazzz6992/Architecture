@@ -23,8 +23,8 @@ public class RestService {
         this.restApi = restApi;
     }
 
-    public Observable<List<User>> loadUsers() {
-        return restApi.loadUsers();
+    public Observable<List<User>> loadUsers(String offset) {
+        return restApi.loadUsers(offset);
     }
 
     public Observable<User> loadUserById(String id) {

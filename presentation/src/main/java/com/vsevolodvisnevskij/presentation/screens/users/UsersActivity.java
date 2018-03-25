@@ -31,12 +31,6 @@ public class UsersActivity extends BaseMVVMActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        viewModel.onResume();
-    }
-
-    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         RecyclerView recyclerView = binding.getRoot().findViewById(R.id.recycler_view);
@@ -54,7 +48,8 @@ public class UsersActivity extends BaseMVVMActivity {
         switch (item.getItemId()) {
             case R.id.add_user:
                 Intent intent = EditUserActivity.getAddIntent(this);
-                startActivity(intent);
+                ((UsersViewModel) viewModel).startActivity(intent);
+
         }
         return super.onOptionsItemSelected(item);
     }

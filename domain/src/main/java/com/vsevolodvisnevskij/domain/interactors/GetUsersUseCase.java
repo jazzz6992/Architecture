@@ -23,7 +23,7 @@ public class GetUsersUseCase extends BaseUseCase {
         this.userRepository = userRepository;
     }
 
-    public Observable<List<UserEntity>> get() {
-        return userRepository.get().subscribeOn(threadExecution).observeOn(postExecutionThread);
+    public Observable<List<UserEntity>> get(String offset) {
+        return userRepository.getUsers(offset).subscribeOn(threadExecution).observeOn(postExecutionThread);
     }
 }

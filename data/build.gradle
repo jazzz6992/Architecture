@@ -27,5 +27,7 @@ dependencies {
     api dependancy.retrofit
     api dependancy.retrofitGsonConverter
     api dependancy.retrofitRxAdapter
+    api dependancy.okHttp
+    api dependancy.okHttpLogging
     api project(path: ':domain')
 }

@@ -23,6 +23,6 @@ public class GetUserByIdUseCase extends BaseUseCase {
     }
 
     public Observable<UserEntity> get(String id) {
-        return userRepository.get(id).subscribeOn(threadExecution).observeOn(postExecutionThread);
+        return userRepository.getUser(id).subscribeOn(threadExecution).observeOn(postExecutionThread);
     }
 }

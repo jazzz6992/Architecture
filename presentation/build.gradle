@@ -29,6 +29,7 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':data')
     def dependancy = rootProject.ext.dependencies
     implementation dependancy.supportAppcompat
     implementation dependancy.supportV4
@@ -37,10 +38,8 @@ dependencies {
     implementation dependancy.constraintLayout
     implementation dependancy.picasso
     implementation dependancy.archComponentsExtention
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     annotationProcessor dependancy.archComponentCompiler
     implementation dependancy.dagger
     annotationProcessor dependancy.daggerCompiler
-    implementation project(path: ':data')
     implementation dependancy.cardView
 }
