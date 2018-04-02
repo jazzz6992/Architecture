@@ -1,11 +1,19 @@
 package com.vsevolodvisnevskij.data.entity;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+
 /**
  * Created by vsevolodvisnevskij on 19.03.2018.
  */
 
+@Entity(tableName = "User")
 public class User {
 
+    @NonNull
+    @PrimaryKey
     private String objectId;
     private int age;
     private String profileUrl;

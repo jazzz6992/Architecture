@@ -1,5 +1,6 @@
 package com.vsevolodvisnevskij.injection;
 
+import com.vsevolodvisnevskij.app.App;
 import com.vsevolodvisnevskij.presentation.screens.edit.EditUserViewModel;
 import com.vsevolodvisnevskij.presentation.screens.user.UserViewModel;
 import com.vsevolodvisnevskij.presentation.screens.users.UsersViewModel;
@@ -20,4 +21,6 @@ public interface AppComponent {
     void inject(UsersViewModel usersViewModel);
 
     void inject(EditUserViewModel usersViewModel);
+
+//    void inject(App app);
 }

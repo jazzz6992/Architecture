@@ -1,9 +1,11 @@
 package com.vsevolodvisnevskij.injection;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.vsevolodvisnevskij.data.BuildConfig;
+import com.vsevolodvisnevskij.data.db.AppDatabase;
 import com.vsevolodvisnevskij.data.net.RestApi;
 import com.vsevolodvisnevskij.data.net.RestService;
 import com.vsevolodvisnevskij.data.repositories.UserRepositoryImpl;
@@ -49,8 +51,8 @@ public class AppModule {
     }
 
     @Provides
-    public UserRepository getUserRepository(Context context, RestService restService) {
-        return new UserRepositoryImpl(context, restService);
+    public UserRepository getUserRepository(Context context, RestService restService, AppDatabase database) {
+        return new UserRepositoryImpl(context, restService, database);
     }
 
     @Provides
@@ -78,5 +80,12 @@ public class AppModule {
             builder.addInterceptor(loggingInterceptor);
         }
         return builder.build();
+    }
+
+    @Provides
+    @Singleton
+    public AppDatabase getAppDatabase(Context context) {
+        AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, "database").fallbackToDestructiveMigration().build();
+        return database;
     }
 }

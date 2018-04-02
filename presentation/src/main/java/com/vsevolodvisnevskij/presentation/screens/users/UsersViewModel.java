@@ -97,10 +97,6 @@ public class UsersViewModel extends BaseViewModel {
         }
     }
 
-    //    public LinearLayoutManager getLinearLayoutManager() {
-    //        return linearLayoutManager;
-    //    }
-
     public UserAdapter gerUserAdapter() {
         return adapter;
     }

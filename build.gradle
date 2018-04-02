@@ -57,7 +57,10 @@ ext {
             retrofitGsonConverter  : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
             retrofitRxAdapter      : "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$retrofitRxAdapterVersion",
             okHttp                 : "com.squareup.okhttp3:okhttp:$okHttpVersion",
-            okHttpLogging          : "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+            okHttpLogging          : "com.squareup.okhttp3:logging-interceptor:$okHttpVersion",
+            room                   : "android.arch.persistence.room:runtime:$archComponentVersion",
+            roomCompiler           : "android.arch.persistence.room:compiler:$archComponentVersion",
+            rxRoom                 : "android.arch.persistence.room:rxjava2:$archComponentVersion"
     ]
 }
 

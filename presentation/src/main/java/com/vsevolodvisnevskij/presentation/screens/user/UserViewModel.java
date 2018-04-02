@@ -65,7 +65,7 @@ public class UserViewModel extends BaseViewModel {
 
             @Override
             public void onError(Throwable e) {
-
+                progressVisible.set(false);
             }
 
             @Override

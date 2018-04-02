@@ -13,7 +13,7 @@ import io.reactivex.Completable;
  */
 
 public class DeleteUserUseCase extends BaseUseCase {
-    UserRepository userRepository;
+   private UserRepository userRepository;
 
     @Inject
     public DeleteUserUseCase(PostExecutionThread postExecutionThread, UserRepository userRepository) {
