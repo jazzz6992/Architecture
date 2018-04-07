@@ -1,7 +1,6 @@
 package com.vsevolodvisnevskij.presentation.screens.users;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,14 +10,13 @@ import android.view.MenuItem;
 
 import com.vsevolodvisnevskij.presentation.R;
 import com.vsevolodvisnevskij.presentation.base.BaseMVVMActivity;
-import com.vsevolodvisnevskij.presentation.base.BaseViewModel;
-import com.vsevolodvisnevskij.presentation.screens.edit.EditUserActivity;
+import com.vsevolodvisnevskij.presentation.databinding.ActivityUsersBinding;
 
 /**
  * Created by vsevolodvisnevskij on 22.03.2018.
  */
 
-public class UsersActivity extends BaseMVVMActivity {
+public class UsersActivity extends BaseMVVMActivity<ActivityUsersBinding, UsersViewModel, UsersRouter> {
 
     @Override
     public int provideLayoutId() {
@@ -26,9 +24,15 @@ public class UsersActivity extends BaseMVVMActivity {
     }
 
     @Override
-    public BaseViewModel provideViewModel() {
+    public UsersViewModel provideViewModel() {
         return ViewModelProviders.of(this).get(UsersViewModel.class);
     }
+
+    @Override
+    public UsersRouter provideRouter() {
+        return new UsersRouter(this);
+    }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,9 +51,10 @@ public class UsersActivity extends BaseMVVMActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_user:
-                Intent intent = EditUserActivity.getAddIntent(this);
-                ((UsersViewModel) viewModel).startActivity(intent);
-
+                viewModel.startActivity();
+                if (router != null) {
+                    router.navigateToEditUser();
+                }
         }
         return super.onOptionsItemSelected(item);
     }

@@ -1,10 +1,8 @@
 package com.vsevolodvisnevskij.presentation.screens.user;
 
-import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.vsevolodvisnevskij.app.App;
@@ -12,7 +10,6 @@ import com.vsevolodvisnevskij.domain.entity.UserEntity;
 import com.vsevolodvisnevskij.domain.interactors.DeleteUserUseCase;
 import com.vsevolodvisnevskij.domain.interactors.GetUserByIdUseCase;
 import com.vsevolodvisnevskij.presentation.base.BaseViewModel;
-import com.vsevolodvisnevskij.presentation.screens.edit.EditUserActivity;
 
 import javax.inject.Inject;
 
@@ -24,7 +21,7 @@ import io.reactivex.disposables.Disposable;
  * Created by vsevolodvisnevskij on 12.03.2018.
  */
 
-public class UserViewModel extends BaseViewModel {
+public class UserViewModel extends BaseViewModel<UserRouter> {
 
     @Inject
     public GetUserByIdUseCase getUserByIdUseCase;
@@ -39,7 +36,6 @@ public class UserViewModel extends BaseViewModel {
     private ObservableBoolean progressVisible = new ObservableBoolean(false);
 
     private String id;
-    private AppCompatActivity activity;
 
     @Override
     public void createInject() {
@@ -112,9 +108,9 @@ public class UserViewModel extends BaseViewModel {
     }
 
     public void startEditActivity() {
-        Intent intent = EditUserActivity.getEditIntent(activity, userName.get(), profileUrl.get(), age.get(), id);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activity.startActivity(intent);
+        if (router != null) {
+            router.navigateToEditUser(userName.get(), profileUrl.get(), age.get(), id);
+        }
     }
 
     public void removeUser() {
@@ -128,7 +124,9 @@ public class UserViewModel extends BaseViewModel {
             @Override
             public void onComplete() {
                 Log.d(MY_TEG, "onComplete for remove id " + id);
-                activity.finish();
+                if (router != null) {
+                    router.back();
+                }
             }
 
             @Override
@@ -136,9 +134,5 @@ public class UserViewModel extends BaseViewModel {
                 Log.d(MY_TEG, "onError for remove id " + id + " message: " + e.getMessage());
             }
         });
-    }
-
-    public void setActivity(AppCompatActivity activity) {
-        this.activity = activity;
     }
 }

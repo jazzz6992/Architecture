@@ -1,5 +1,6 @@
 package com.vsevolodvisnevskij.data.net;
 
+import com.vsevolodvisnevskij.data.entity.Error;
 import com.vsevolodvisnevskij.data.entity.User;
 
 import java.util.List;
@@ -17,25 +18,27 @@ import io.reactivex.Observable;
 @Singleton
 public class RestService {
     private RestApi restApi;
+    private ErrorTransformer errorTransformer;
 
     @Inject
-    public RestService(RestApi restApi) {
+    public RestService(RestApi restApi, ErrorTransformer errorTransformer) {
         this.restApi = restApi;
+        this.errorTransformer = errorTransformer;
     }
 
     public Observable<List<User>> loadUsers(String offset) {
-        return restApi.loadUsers(offset);
+        return restApi.loadUsers(offset).compose(errorTransformer.<List<User>, Error>parseHttpError());
     }
 
     public Observable<User> loadUserById(String id) {
-        return restApi.loadUserById(id);
+        return restApi.loadUserById(id).compose(errorTransformer.<User, Error>parseHttpError());
     }
 
     public Completable saveUser(User user) {
-        return restApi.saveUser(user);
+        return restApi.saveUser(user).compose(errorTransformer.parseHttpErrorCompletable());
     }
 
     public Completable removeUser(String id) {
-        return restApi.removeUser(id);
+        return restApi.removeUser(id).compose(errorTransformer.parseHttpErrorCompletable());
     }
 }

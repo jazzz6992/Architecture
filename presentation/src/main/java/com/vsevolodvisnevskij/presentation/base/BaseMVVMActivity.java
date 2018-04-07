@@ -13,13 +13,17 @@ import com.vsevolodvisnevskij.presentation.BR;
  * Created by vsevolodvisnevskij on 12.03.2018.
  */
 
-public abstract class BaseMVVMActivity<Binding extends ViewDataBinding, ViewModel extends BaseViewModel> extends AppCompatActivity {
+public abstract class BaseMVVMActivity<Binding extends ViewDataBinding, ViewModel extends BaseViewModel, Rout extends Router> extends AppCompatActivity {
     protected Binding binding;
     protected ViewModel viewModel;
+    @Nullable
+    protected Rout router;
 
     public abstract int provideLayoutId();
 
     public abstract ViewModel provideViewModel();
+
+    public abstract Rout provideRouter();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,7 +31,10 @@ public abstract class BaseMVVMActivity<Binding extends ViewDataBinding, ViewMode
         binding = DataBindingUtil.setContentView(this, provideLayoutId());
         viewModel = provideViewModel();
         binding.setVariable(BR.viewModel, viewModel);
+        router = provideRouter();
+        viewModel.attachRouter(router);
     }
+
 
     @Override
     protected void onResume() {
@@ -51,5 +58,12 @@ public abstract class BaseMVVMActivity<Binding extends ViewDataBinding, ViewMode
     protected void onStop() {
         super.onStop();
         viewModel.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        router = null;
+        viewModel.detachRouter();
     }
 }

@@ -27,5 +27,6 @@ public interface UserDao {
     @Query("DELETE FROM user WHERE objectId=:id")
     void delete(String id);
 
-
+    @Query("UPDATE user SET age=:argAge, profileUrl=:argProfileUrl, username=:argUsername WHERE objectId=:argId")
+    void update(int argAge, String argProfileUrl, String argUsername, String argId);
 }

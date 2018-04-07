@@ -1,15 +1,15 @@
 package com.vsevolodvisnevskij.presentation.screens.users;
 
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import com.vsevolodvisnevskij.domain.entity.UserEntity;
+import com.vsevolodvisnevskij.presentation.base.BaseItemViewModel;
 
 /**
  * Created by vsevolodvisnevskij on 22.03.2018.
  */
 
-public class ItemUserViewModel extends BaseObservable {
+public class ItemUserViewModel extends BaseItemViewModel<UserEntity> {
     private UserEntity entity;
 
     public UserEntity getEntity() {
@@ -28,5 +28,11 @@ public class ItemUserViewModel extends BaseObservable {
 
     public String getId() {
         return entity.getId();
+    }
+
+    @Override
+    public void setItem(UserEntity userEntity, int position) {
+        this.entity = userEntity;
+        notifyChange();
     }
 }

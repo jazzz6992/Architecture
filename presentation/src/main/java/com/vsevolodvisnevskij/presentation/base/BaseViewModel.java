@@ -1,6 +1,7 @@
 package com.vsevolodvisnevskij.presentation.base;
 
 import android.arch.lifecycle.ViewModel;
+import android.support.annotation.Nullable;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -8,9 +9,20 @@ import io.reactivex.disposables.CompositeDisposable;
  * Created by vsevolodvisnevskij on 12.03.2018.
  */
 
-public abstract class BaseViewModel extends ViewModel {
+public abstract class BaseViewModel<R extends Router> extends ViewModel {
     public static final String MY_TEG = "my_teg";
     protected CompositeDisposable compositeDisposable = new CompositeDisposable();
+    @Nullable
+    protected R router;
+
+    public void attachRouter(R router) {
+        this.router = router;
+    }
+
+    public void detachRouter() {
+        router = null;
+    }
+
 
     public abstract void createInject();
 

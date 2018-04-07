@@ -5,9 +5,9 @@ import android.content.Intent;
 
 import com.vsevolodvisnevskij.presentation.R;
 import com.vsevolodvisnevskij.presentation.base.BaseMVVMActivity;
-import com.vsevolodvisnevskij.presentation.base.BaseViewModel;
+import com.vsevolodvisnevskij.presentation.databinding.ActivityEditBinding;
 
-public class EditUserActivity extends BaseMVVMActivity {
+public class EditUserActivity extends BaseMVVMActivity<ActivityEditBinding, EditUserViewModel, EditRouter> {
 
     private static final String EXTRA_NAME = "com.vsevolodvisnevskij.presentation.NAME";
     private static final String EXTRA_URL = "com.vsevolodvisnevskij.presentation.URL";
@@ -24,9 +24,8 @@ public class EditUserActivity extends BaseMVVMActivity {
     }
 
     @Override
-    public BaseViewModel provideViewModel() {
+    public EditUserViewModel provideViewModel() {
         EditUserViewModel editUserViewModel = new EditUserViewModel();
-        editUserViewModel.setActivity(this);
         Intent intent = getIntent();
         String action = intent.getStringExtra(EXTRA_ACTION);
         if (action.equals(ACTION_EDIT)) {
@@ -39,6 +38,11 @@ public class EditUserActivity extends BaseMVVMActivity {
             return editUserViewModel;
         }
         return null;
+    }
+
+    @Override
+    public EditRouter provideRouter() {
+        return new EditRouter(this);
     }
 
     public static Intent getEditIntent(Context context, String name, String url, int age, String id) {

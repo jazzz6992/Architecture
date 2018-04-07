@@ -3,7 +3,6 @@ package com.vsevolodvisnevskij.presentation.screens.edit;
 import android.databinding.InverseMethod;
 import android.databinding.ObservableField;
 import android.databinding.ObservableInt;
-import android.support.v7.app.AppCompatActivity;
 
 import com.vsevolodvisnevskij.app.App;
 import com.vsevolodvisnevskij.domain.entity.UserEntity;
@@ -24,12 +23,11 @@ public class EditUserViewModel extends BaseViewModel {
     @Inject
     public SaveUserUseCase saveUserUseCase;
 
-    private AppCompatActivity activity;
-
     private ObservableField<String> name = new ObservableField<>();
     private ObservableField<String> profileUrl = new ObservableField<>();
     private ObservableInt age = new ObservableInt();
     private ObservableField<String> objectId = new ObservableField<>();
+
 
     @Override
     public void createInject() {
@@ -64,10 +62,6 @@ public class EditUserViewModel extends BaseViewModel {
         return objectId;
     }
 
-    public void setActivity(AppCompatActivity activity) {
-        this.activity = activity;
-    }
-
     @InverseMethod("convertToAge")
     public String convertFromAge(int age) {
         return String.valueOf(age);
@@ -85,11 +79,14 @@ public class EditUserViewModel extends BaseViewModel {
         saveUserUseCase.save(userEntity).subscribe(new CompletableObserver() {
             @Override
             public void onSubscribe(Disposable d) {
+                compositeDisposable.add(d);
             }
 
             @Override
             public void onComplete() {
-                activity.finish();
+                if (router != null) {
+                    router.back();
+                }
             }
 
             @Override

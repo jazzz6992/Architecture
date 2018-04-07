@@ -38,8 +38,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Observable<UserEntity> getUser(String id) {
-        return restService.loadUserById(id)
-                .onErrorResumeNext(new Function<Throwable, ObservableSource<? extends User>>() {
+        return restService.loadUserById(id).onErrorResumeNext(new Function<Throwable, ObservableSource<? extends User>>() {
             @Override
             public ObservableSource<? extends User> apply(Throwable throwable) throws Exception {
                 return userDao.getById(id).toObservable();
@@ -87,9 +86,7 @@ public class UserRepositoryImpl implements UserRepository {
         return restService.saveUser(user).onErrorResumeNext(new Function<Throwable, CompletableSource>() {
             @Override
             public CompletableSource apply(Throwable throwable) throws Exception {
-                List<User> userList = new ArrayList<>();
-                userList.add(user);
-                userDao.insert(userList);
+                userDao.update(user.getAge(), user.getProfileUrl(), user.getUsername(), user.getObjectId());
                 return Completable.complete();
             }
         });

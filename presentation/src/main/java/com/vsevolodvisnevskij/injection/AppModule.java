@@ -3,6 +3,8 @@ package com.vsevolodvisnevskij.injection;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.vsevolodvisnevskij.data.BuildConfig;
 import com.vsevolodvisnevskij.data.db.AppDatabase;
@@ -87,5 +89,12 @@ public class AppModule {
     public AppDatabase getAppDatabase(Context context) {
         AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, "database").fallbackToDestructiveMigration().build();
         return database;
+    }
+
+    @Provides
+    @Singleton
+    public Gson getGson() {
+        GsonBuilder builder = new GsonBuilder();
+        return builder.create();
     }
 }
