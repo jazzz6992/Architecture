@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 import com.vsevolodvisnevskij.presentation.screens.users.UsersViewModel;
 
@@ -25,6 +26,6 @@ public class BindingAdapters {
         if (url == null)
             return;
         Log.d("TAG", url);
-        Picasso.with(view.getContext()).load(url).into(view);
+        Glide.with(view.getContext()).load(url).into(view);
     }
 }

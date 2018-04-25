@@ -11,10 +11,33 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
-        release {
+        debug {
+            signingConfig signingConfigs.debug
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            signingConfig signingConfigs.debug //FIXME
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('/Users/vsevolodvisnevskij/AndroidStudioProjects/ITAcademy/Architecture/key.jks')
+            storePassword 'Bm202060'
+            keyAlias 'key0'
+            keyPassword 'Bm202060'
+        }
+        release {
+            storeFile file('/Users/vsevolodvisnevskij/AndroidStudioProjects/ITAcademy/Architecture/key.jks')
+            storePassword 'Bm202060'
+            keyAlias 'key0'
+            keyPassword 'Bm202060'
         }
     }
 
@@ -42,4 +65,9 @@ dependencies {
     implementation dependancy.dagger
     annotationProcessor dependancy.daggerCompiler
     implementation dependancy.cardView
+    implementation dependancy.glide
+    implementation dependancy.rxPermission
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

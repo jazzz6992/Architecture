@@ -1,7 +1,5 @@
 package com.vsevolodvisnevskij.presentation.screens.users;
 
-import android.content.Context;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -29,9 +27,6 @@ import io.reactivex.disposables.Disposable;
 public class UsersViewModel extends BaseViewModel<UsersRouter> {
     @Inject
     public GetUsersUseCase getUsersUseCase;
-
-    @Inject
-    public Context context;
 
     private UserAdapter adapter = new UserAdapter();
     private boolean activityStarted = false;

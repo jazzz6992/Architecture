@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Architecture</string>
     <string name="avatar">Avatar</string>
+    <string name="avatar_desc">This is avatar</string>
+    <string name="name_desc">This is user name</string>
+    <string name="age_desc">This is user age</string>
     <string name="edit">Edit</string>
     <string name="save">Save</string>
     <string name="add">Add user</string>
     <string name="delete_user">Delete</string>
+    <string name="reset_intro">Reset Intro</string>
+    <string name="title_toolbar">Title toolbar</string>
 </resources>

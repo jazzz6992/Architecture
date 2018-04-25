@@ -102,4 +102,29 @@ public class UserRepositoryImpl implements UserRepository {
             }
         });
     }
+
+//    @Override
+//    public Completable cloneDb() {
+//        String offset = "0";
+//        boolean isOk = true;
+//        userDao.deleteAll();
+//        do {
+//            getUsers(offset).flatMap(userEntities -> {
+//                List<User> users = new ArrayList<>();
+//                for (UserEntity u : userEntities) {
+//                    User user = new User();
+//                    user.setAge(u.getAge());
+//                    user.setObjectId(u.getId());
+//                    user.setProfileUrl(u.getUrl());
+//                    user.setUsername(u.getUserName());
+//                    users.add(user);
+//                }
+//                return Observable.fromArray(users);
+//            }).subscribe(users -> {
+//                isOk = users.size() > 0 ? true : false;
+//                userDao.insert(users);
+//
+//            });
+//        } while (isOk);
+//    }
 }
